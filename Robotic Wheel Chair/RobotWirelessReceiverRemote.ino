@@ -47,7 +47,15 @@ const int StateFRWD  = 1;
 const int StateRevrs = 2;
 const int StateRight = 3;
 const int StateLeft  = 4;
+const int StateRightRev = 5;
+const int StateLeftRev  = 6;
 
+
+const int RMLeftRevValue = 210 ;
+const int LMLeftRevValue = 225;
+
+const int RMRightRevValue = 225 ;
+const int LMRightRevValue = 210;
 
 int MotorState = StateSTOP;
 
@@ -162,7 +170,24 @@ void MoveSTOP() {
   analogWrite(LMotorPin, LMValue);
 
 }
+void MoveRightRev() {
 
+  RMValue = RMRightRevValue;
+  LMValue = RMRightRevValue;
+
+  analogWrite(RMotorPin, RMValue);
+  analogWrite(LMotorPin, LMValue);
+
+}
+void MoveLeftRev() {
+
+  RMValue = RMLeftRevValue;
+  LMValue = RMLeftRevValue;
+
+  analogWrite(RMotorPin, RMValue);
+  analogWrite(LMotorPin, LMValue);
+
+}
 
 void loop() {
   // read the analog in value:
@@ -183,14 +208,36 @@ void loop() {
     MotorState = StateFRWD;
     //  outputValue = 85 ; // map(sensorValue, 0, 1023, 0, 255);
 
+ if (RLValue < 100 )
+    {
+      MotorState = StateRight;
+      //  outputValue = 85 ; // map(sensorValue, 0, 1023, 0, 255);
+  
+    }
+    if (RLValue > 1000 ) {
+  
+      MotorState = StateLeft;
+      // outputValue = 240 ; // map(sensorValue, 0, 1023, 0, 255);
+    }
   }
   if (FRValue > 1000 ) {
 
     MotorState = StateRevrs;
     // outputValue = 240 ; // map(sensorValue, 0, 1023, 0, 255);
-  }
+ if (RLValue < 100 )
+    {
+      MotorState = StateRightRev;
+      //  outputValue = 85 ; // map(sensorValue, 0, 1023, 0, 255);
+  
+    }
+    if (RLValue > 1000 ) {
+  
+      MotorState = StateLeftRev;
+      // outputValue = 240 ; // map(sensorValue, 0, 1023, 0, 255);
+    }
+ }
 
-
+/*
 if ((FRValue < 100) | ( FRValue > 1000)){
 // If Moving check Side Direction :   
     if (RLValue < 100 )
@@ -205,6 +252,7 @@ if ((FRValue < 100) | ( FRValue > 1000)){
       // outputValue = 240 ; // map(sensorValue, 0, 1023, 0, 255);
     }
 }
+*/
 
 // STOP   
   if ((FRValue > 100) & ( FRValue < 1000))
@@ -235,6 +283,13 @@ if ((FRValue < 100) | ( FRValue > 1000)){
 
     case StateSTOP:
       MoveSTOP();
+      break;
+    
+    case StateLeftRev:
+      MoveLeftRev();
+      break;
+    case StateRightRev:
+      MoveRightRev();
       break;
       
     default:
