@@ -148,8 +148,9 @@ void setS_HTML() {
   s += "</head> \r\n" ;
 
   s += "<BODY>";
-  s += "<h1> Hello from Sami Oweis, PhD.</H1> \r\n";
-  s += "<H3> Sprinker System using an ESP8266 <H3> \r\n";
+  s += "<h1> SAMI Group LLC, <H1> \r\n";
+  s += "<H2> Sprinkler System <H2> \r\n";
+  s += "<h1> Sami Oweis, PhD.</H1> \r\n";
   s += " IP is " + ipStr + "<p>\r\n";
 
   s += "<div id=\"RSSI\"> rssi " +  String(UpdateRSSI()) + "  dBm </div> \r \n ";
